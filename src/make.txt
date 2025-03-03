@@ -1,0 +1,46 @@
+CC := g++
+CFLAGS := -g -Wall -std=c++11
+
+# Directories containing header files
+INCLUDE_DIRS := -I../lib/curl/include/curl \
+                -I../lib/portaudio/include \
+                -I../lib/base64/include \
+                -I../lib/jsoncpp-master/include
+
+# Directories containing libraries
+LIB_DIRS := -L../lib/curl/lib \
+            -L../lib/portaudio/build
+
+# Libraries to link against
+LIBS := -lcurl \
+        -ljsoncpp \
+        -lportaudio \
+        -lwinmm \
+        -lole32
+
+# Source files
+SRCS := ../src/main.cpp \
+        ../src/recordAudio.cpp \
+        ../src/encoder.cpp \
+        ../src/callCloudApi.cpp \
+        ../src/translatorTest.cpp
+
+# Object files
+OBJS := $(SRCS:.cpp=.o)
+
+# Executable name
+EXEC := speechToText
+
+# Build target
+all: $(EXEC)
+
+$(EXEC): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) $(LIB_DIRS) -o $@ $^ $(LIBS)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) $(INCLUDE_DIRS) -c $< -o $@
+
+clean:
+	rm -f $(EXEC) $(OBJS)
+
+.PHONY: all clean

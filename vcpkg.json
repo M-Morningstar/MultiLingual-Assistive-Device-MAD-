@@ -1,0 +1,14 @@
+{
+    "name": "MultiLingual-Assistive-Device",
+    "version": "3.0",
+    "dependencies": [
+        "base64",
+        "curl",
+        "jsoncpp",
+        "libao",
+        "portaudio",
+        "sdl",
+        "sdl2",
+        "soxr"
+    ]
+}
