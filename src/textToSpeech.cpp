@@ -5,6 +5,7 @@
 
 #include "textToSpeech.h"
 #include "fileEncoder.h"
+#include <cstdlib>   // for getenv()
 
 /**
  * @brief textWriteCallback writes data received from a successful HTTP request
@@ -43,7 +44,15 @@ void textToSpeechAPIRequest(const std::string& text, const std::string& language
     if(curl) {
         
         // Connection request
-        std::string apiKey = ""; // Include your actual Google Cloud API key
+        const char* env_apiKey = std::getenv("GOOGLE_TTS_API_KEY");
+        if (!env_apiKey) {
+            std::cerr << "Error: GOOGLE_TTS_API_KEY environment variable not set!" << std::endl;
+            curl_slist_free_all(headers);
+            curl_easy_cleanup(curl);
+            curl_global_cleanup();
+            return;
+        }
+        std::string apiKey(env_apiKey);
         std::string url = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + apiKey;
 
         // std::string jsonPayload = "{\"input\":{\"text\":\"" + text + "\"},\"voice\":{\"languageCode\":\"" + languageCode + "\",\"name\":\"" + languageCode + "-Wavenet-D\"},\"audioConfig\":{\"audioEncoding\":\"LINEAR16\"}}";

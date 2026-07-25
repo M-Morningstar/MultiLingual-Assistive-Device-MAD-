@@ -1,0 +1,31 @@
+# Compiled object files
+*.o
+*.obj
+*.exe
+program.exe
+
+# Environment / config files
+.env
+.env.local
+*.env
+
+# Audio output
+*.wav
+*.mp3
+encodedAudio.txt
+
+# Log files
+*.log
+HistoryLog.txt
+transcript.txt
+translatedText.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

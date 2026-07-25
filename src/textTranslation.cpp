@@ -1,4 +1,5 @@
 #include "textTranslation.h"
+#include <cstdlib>   // for getenv()
 
 using namespace std;
 
@@ -91,7 +92,12 @@ string TranslateText(const std::string& sourceText, const std::string& sourceLan
 
 
 void translate(const std::string& filePath){
-    std::string apiKey = "";
+    const char* env_apiKey = std::getenv("GOOGLE_TRANSLATE_API_KEY");
+    if (!env_apiKey) {
+        std::cerr << "Error: GOOGLE_TRANSLATE_API_KEY environment variable not set!" << std::endl;
+        return;
+    }
+    std::string apiKey(env_apiKey);
     std::string sourceLanguage = "en";
     std::string targetLanguage = "es";
 

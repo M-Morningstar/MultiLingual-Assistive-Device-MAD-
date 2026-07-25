@@ -6,6 +6,7 @@
 #include "textToSpeech.h"
 #include "languageCodes.h"
 #include "wavPlayer.h"
+#include <cstdlib>   // for getenv()
 
 using namespace std;
 
@@ -15,8 +16,10 @@ using namespace std;
     time_t now = time(0);
     char* dt = ctime(&now);
 
-    string translateApiKey = "";
-    string speechApiKey = "";
+    // API keys are read from environment variables for security
+    // Set GOOGLE_TRANSLATE_API_KEY and GOOGLE_STT_API_KEY in your environment
+    string translateApiKey = std::getenv("GOOGLE_TRANSLATE_API_KEY") ? std::getenv("GOOGLE_TRANSLATE_API_KEY") : "";
+    string speechApiKey = std::getenv("GOOGLE_STT_API_KEY") ? std::getenv("GOOGLE_STT_API_KEY") : "";
     string textToTranslate = "Hello, how are you this fine sunday evening.";
     string sourceLanguage = "en";
     string targetLanguage = "tr";

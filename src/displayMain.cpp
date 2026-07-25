@@ -9,6 +9,7 @@
 #include "fileEncoder.h"
 #include "audioRecorder.h"
 #include "textTranslation.h"
+#include <cstdlib>   // for getenv()
 
 /*
 //This class is fully commented out because it requires wiring.pi and lcd libraries that can only be downloaded on rasberypi directly
@@ -21,8 +22,8 @@ const char* base64FilePath = "encodedAudio.txt";
 time_t now = time(0);
 char* dt = ctime(&now);
 
-string translateApiKey = "";
-string speechApiKey = "";
+string translateApiKey = std::getenv("GOOGLE_TRANSLATE_API_KEY") ? std::getenv("GOOGLE_TRANSLATE_API_KEY") : "";
+string speechApiKey = std::getenv("GOOGLE_STT_API_KEY") ? std::getenv("GOOGLE_STT_API_KEY") : "";
 string textToTranslate = "Hello, how are you this fine sunday evening.";
 string sourceLanguage = "en";
 string targetLanguage = "tr";
